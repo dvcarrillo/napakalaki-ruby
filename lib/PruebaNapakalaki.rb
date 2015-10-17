@@ -9,7 +9,7 @@
 # PruebaNapakalaki.rb
 
 # MODIFICAR!
-require '/Users/davidvargascarrillo/Documents/NapakalakiRuby/NapakalakiRuby/lib/prize.rb'
+require './prize.rb'
 
 ################################################################################
 # TEST OF THE CRATED CLASSES
