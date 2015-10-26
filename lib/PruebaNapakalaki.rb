@@ -10,6 +10,7 @@
 
 # MODIFICAR!
 require './prize.rb'
+require './bad_consequence.rb'
 
 ################################################################################
 # TEST OF THE CRATED CLASSES
@@ -23,3 +24,9 @@ prz = Prize.new(level,treasures)
 puts "Test de Prize"
 puts prz.level
 puts prz.treasures
+
+puts "\nTest de Bad Consequence"
+
+badcon = BadConsequence.new("soy malo", 12, 2, 0, 0, 0, false)
+
+puts badcon.to_s

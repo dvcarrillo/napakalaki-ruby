@@ -19,8 +19,8 @@ class Monster
   ##############################################################################
   # INITIALIZE METHOD
   
-  def initialize(nm, com_lvl, badco, prz)
-    @name = nm
+  def initialize(a_name, com_lvl, badco, prz)
+    @name = a_name
     @combat_level = com_lvl
     @bc = badco
     @pz = prz
