@@ -11,7 +11,8 @@
 class BadConsequence
   
   # This indicates that the "new" method has private visibility
-  #private_class_method :new
+  
+  private_class_method :new
   
   # This type of declaration includes the methods of consulting the value of 
   # these variables
@@ -59,38 +60,31 @@ class BadConsequence
   
   # Methods that set the attributes to the desired values
   
-  def new_level_number_of_treasures (a_text, some_levels,
+  def self.new_level_number_of_treasures (a_text, some_levels,
       some_visible_treasures, some_hidden_treasures)
-    @text = a_text
-    @levels = some_levels
-    @n_visible_treasures = some_visible_treasures
-    @n_hidden_treasures = some_hidden_treasures
+    new(a_text, some_levels, some_visible_treasures, some_hidden_treasures,
+        0, 0, false)
   end
   
-  def new_level_specific_treasures (a_text, some_levels,
+  def self.new_level_specific_treasures (a_text, some_levels,
       some_specific_visible_treasures, some_specific_hidden_treasures)
-    @text = a_text
-    @levels = some_levels
-    @specific_visible_treasures = some_specific_visible_treasures
-    @specific_hidden_treasures = some_specific_hidden_treasures
-    @n_visible_treasures = some_specific_visible_treasures.length
-    @n_hidden_treasures = some_specific_hidden_treasures.length
+    new(a_text, some_levels, some_specific_visible_treasures.length,
+      some_specific_hidden_treasures.length, some_specific_visible_treasures,
+      some_specific_hidden_treasures, false)
   end
   
-  def new_death (a_text)
-    @death = true
-    @text = a_text
-    @n_visible_treasures = 0
-    @n_hidden_treasures = 0
-    @specific_visible_treasures = 0
-    @specific_hidden_treasures = 0
-    @levels = 0
+  def self.new_death(a_text)
+    new(a_text, 0, 0, 0, 0, 0, true)
   end
   
   # Method that returns a string with the state of the current object
   
   def to_s
-    "Texto: #{@text}\nNiveles que resta: #{@levels}\nNum. tesoros visibles: #{@n_visible_treasures}\nNum. tesoros ocultos: #{@n_hidden_treasures}\nTesoros visibles: #{@specific_visible_treasures}\nTesoros ocultos: #{@specific_visible_treasures}\nCausa la muerte? #{@death}\n"
+    respuesta  = "Texto: #{@text}\nNiveles que resta: #{@levels}\nNum. "
+    respuesta += "tesoros visibles: #{@n_visible_treasures}\nNum. tesoros "
+    respuesta += "ocultos: #{@n_hidden_treasures}\nTesoros visibles: "
+    respuesta += "#{@specific_visible_treasures}\nTesoros ocultos: "
+    respuesta += "#{@specific_visible_treasures}\nCausa la muerte? #{@death}\n"
   end
   
 end
