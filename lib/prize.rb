@@ -20,5 +20,10 @@ class Prize
     @level = lvl
     @treasures = trs
   end
+  # to_s METHOD:
+  
+  def to_s
+    "nivel ganado: #{@level} \nn_tesoros ganados: #{@treasures}"
+  end
 
 end
