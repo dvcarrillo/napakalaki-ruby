@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas
+# Author: David Vargas Carrillo, Alicia Vílchez Ceballos
 
 # Class for managing the "bad consequence", which is the damages that causes a
 # monster when the player fights against it and loses.
@@ -23,8 +23,15 @@ class BadConsequence
   attr_reader :specific_visible_treasures # Array of visible treasures
   attr_reader :specific_hidden_treasures  # Array of hidden treasures
   
-  def initialize
-    # TO DO FOR NEXT WEEK  
+  def initialize (txt, lv, nvt, nht, dth, svt, sht)
+    @text = txt
+    @levels = lv
+    @n_visible_treasures = nvt
+    @n_hidden_treasures = nht
+    @death = dth
+    @specific_visible_treasures = svt
+    @specific_hidden_treasures = sht
+      
   end
   
 end
