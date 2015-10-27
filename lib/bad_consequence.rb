@@ -84,7 +84,7 @@ class BadConsequence
     respuesta += "tesoros visibles: #{@n_visible_treasures}\nNum. tesoros "
     respuesta += "ocultos: #{@n_hidden_treasures}\nTesoros visibles: "
     respuesta += "#{@specific_visible_treasures}\nTesoros ocultos: "
-    respuesta += "#{@specific_visible_treasures}\nCausa la muerte? #{@death}\n"
+    respuesta += "#{@specific_hidden_treasures}\nCausa la muerte? #{@death}\n"
   end
   
 end
