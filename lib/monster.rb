@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas
+# Author: David Vargas, Alicia Vílchez
 
 # This class manages the cards of type Monster and its attributes
 
@@ -24,6 +24,11 @@ class Monster
     @combat_level = com_lvl
     @bc = badco
     @pz = prz
+  end
+  
+  def to_s
+    respuesta = "nombre: #{@name} \nnivel de combate: #{@combat_level}" 
+    respuesta += "\nMal Rollo: \n#{@bc} \nBuen Rollo: \n#{@pz}"
   end
   
 end
