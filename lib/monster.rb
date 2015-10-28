@@ -26,4 +26,11 @@ class Monster
     @pz = prz
   end
   
+  # Method that returns a string with the state of the current object
+  
+  def to_s
+    respuesta = "Nombre: #{@name}\nNivel de combate: #{@combat_level}" 
+    respuesta += "\nMal Rollo: \n#{@bc} \nBuen Rollo: \n#{@pz}"
+  end
+  
 end

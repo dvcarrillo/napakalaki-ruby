@@ -35,23 +35,12 @@ class BadConsequence
       some_specific_hidden_treasures, the_death)
     
     @text = a_text
-    
-    if (the_death == true)
-      @death = true
-      @levels = 0
-      @n_visible_treasures = 0
-      @n_hidden_treasures = 0
-      @specific_visible_treasures = 0
-      @specific_hidden_treasures = 0
-      
-    else
-      @death = false
-      @levels = some_levels
-      @n_visible_treasures = num_visible_treasures
-      @n_hidden_treasures = num_hidden_treasures
-      @specific_visible_treasures = some_specific_visible_treasures
-      @specific_hidden_treasures = some_specific_hidden_treasures
-    end
+    @death = the_death
+    @levels = some_levels
+    @n_visible_treasures = num_visible_treasures
+    @n_hidden_treasures = num_hidden_treasures
+    @specific_visible_treasures = some_specific_visible_treasures
+    @specific_hidden_treasures = some_specific_hidden_treasures
     
   end
   
@@ -63,7 +52,7 @@ class BadConsequence
   def self.new_level_number_of_treasures (a_text, some_levels,
       some_visible_treasures, some_hidden_treasures)
     new(a_text, some_levels, some_visible_treasures, some_hidden_treasures,
-        0, 0, false)
+        Array.new, Array.new, false)
   end
   
   def self.new_level_specific_treasures (a_text, some_levels,
@@ -74,7 +63,7 @@ class BadConsequence
   end
   
   def self.new_death(a_text)
-    new(a_text, 0, 0, 0, 0, 0, true)
+    new(a_text, 0, 0, 0, Array.new, Array.new, true)
   end
   
   # Method that returns a string with the state of the current object

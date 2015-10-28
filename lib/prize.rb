@@ -20,5 +20,11 @@ class Prize
     @level = lvl
     @treasures = trs
   end
+  
+  # Method that returns a string with the state of the current object
+  
+  def to_s
+    "Nivel ganado: #{@level}\nNumero de tesoros ganados: #{@treasures}"
+  end
 
 end
