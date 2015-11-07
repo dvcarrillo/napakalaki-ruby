@@ -2,6 +2,8 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+# Author: David Vargas
+
 require 'singleton'
 
 # Class that manages the correct development of the game
@@ -15,30 +17,33 @@ class Napakalaki
   include Singleton
   
   def initialize
-    # NO VARIABLE DEFINED (YET?)
+    @current_player  # Stores the person who is currently playing
+    @players         # Stores the total of the players playing the game
+    @current_monster # Monster which is currently fighting against the player
+    @dealer          # Object of CardDealer singleton class
   end
   
   ##############################################################################
   ## PRIVATE METHODS
   
   private
-  def napakalaki()
+  def self.napakalaki()
     # ...
   end
   
-  def init_players(names)
+  def self.init_players(names)
     # ...
   end
   
-  def next_player()
+  def self.next_player()
     # ...
   end
   
-  def next_turn_allowed()
+  def self.next_turn_allowed()
     # ...
   end
   
-  def set_enemies()
+  def self.set_enemies()
     # ...
   end
   
@@ -46,11 +51,6 @@ class Napakalaki
   ## PUBLIC METHODS
   
   public
-  # ES NECESARIO INCLUIR GETINSTANCE??
-  # def get_instance()
-  # 
-  # end
-  
   def develop_combat()
     # ...
   end
