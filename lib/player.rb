@@ -8,11 +8,12 @@
 
 class Player
   
-  # Maximum level a player can reach
+  # Maximum level a player can reach (constant)
   MAX_LEVEL = 10
   
   # These attributes can be readable
-  attr_reader :name, :level, :visible_treasures, :hidden_treasures
+  attr_reader :name, :level, :visible_treasures, :hidden_treasures, :dead,
+    :hidden_treasures, :visible_treasures
   attr_accessor :pending_bad_consequence, :enemy
   
   def initialize (a_name, a_level, is_dead, able_to_steal, his_enemy,
@@ -83,26 +84,140 @@ class Player
     # vacíos, aplicar el primer método. En otro caso, aplicar el segundo
     #
     
-    levels_down = a_monster.bc.levels
-    visible_treasures_lost = a_monster.bc.n_visible_treasures
-    hidden_treasures_lost = a_monster.bc.n_hidden_treasures
-    specific_visible_lost = a_monster.bc.specific_visible_treasures
-    specific_hidden_lost = a_monster.bc.specific_hidden_treasures
+    delete_specific_visible = false
+    delete_specific_hidden = false
     
+    if (a_monster.bc.specific_visible_treasures.empty? == true)
+       delete_specific_visible = true
+    end
+    
+    if (a_monster.bc.specific_hidden_treasures.empty? == true)
+      delete_specific_hidden = true
+    end
+    
+    # Reduce player's level
+    levels_down = a_monster.bc.levels
     @level -= levels_down
     
-    # For visible treasures
-    for a_treasure in specific_visible_lost
-      for other_treasure in @visible_treasures
-        if (a_treasure == other_treasure)
-          other_treasure = nil
-        end
-      end
+    # Check visible treasures on monster's bad consequence
+    case delete_specific_visible
+    when true
+      specific_visible_lost = a_monster.bc.specific_visible_treasures
+      # ELIMINAR ELEMENTOS ESPECIFICOS DEL VECTOR
+    when false
+      visible_treasures_lost = a_monster.bc.n_visible_treasures
+      # ELIMINAR "visible_treasures_lost" ELEMENTOS DEL VECTOR
+    end
+    
+    case delete_specific_hidden
+    when true
+      specific_hidden_lost = a_monster.bc.specific_hidden_treasures
+      # ELIMINAR ELEMENTOS ESPECIFICOS DEL VECTOR
+    when false
+      hidden_treasures_lost = a_monster.bc.n_hidden_treasures
+      # ELIMINAR "hidden_treasures_lost" DEL VECTOR
     end
     
   end
   
+  def can_make_treasure_visible (t)
+    # ...
+  end
+  
+  def how_many_visible_treasures (tKind)
+    contador = 0
+    
+    for treasure in @visible_treasures
+      if treasure.type == tKind
+        contador = contador + 1
+      end
+    end
+    
+    # (devolver) contador ??
+  end
+  
+  def die_if_no_treasures ()
+    # ...
+  end
+  
+  def give_me_a_treasure ()
+    # ...
+  end
+  
+  def can_you_give_me_a_treasure ()
+    # ...
+    return true
+  end
+  
+  def have_stolen ()
+    # ...
+  end
+  
   public
   
+  # You are able to read 'dead' directly, as it is an attr_reader!
+  # 
+  # def is_dead ()
+  #   # ...
+  # end
+  
+  # You are able to read 'hidden_treasures' directly, as it is an attr_reader!
+  # 
+  # def get_hidden_treasures ()
+  #   # ...
+  # end
+  
+  # You are able to read 'visible_treasures' directly, as it is an attr_reader!
+  # 
+  # def get_visible_treasures ()
+  #   # ...
+  # end
+  
+  # m: object of Monster
+  def combat (m)
+    # ...
+  end
+  
+  def make_treasure_visible (t)
+    # ...
+  end
+  
+  def discard_visible_treasure (t)
+    # ...
+  end
+  
+  def discard_hidden_treasure (t)
+    # ...
+  end
+  
+  def valid_state ()
+    # ...
+  end
+  
+  def init_treasures ()
+    # ...
+  end
+  
+  # You are able to read 'levels' directly, as it is an attr_reader!
+  # 
+  # def get_levels ()
+  #   # ...
+  # end
+  
+  def steal_treasure ()
+    # ...
+  end
+  
+  def set_enemy (enemy_player)
+    @enemy = enemy_player
+  end
+  
+  def can_i_steal ()
+    # ...
+  end
+  
+  def discard_all_treasures ()
+    # ...
+  end
   
 end
