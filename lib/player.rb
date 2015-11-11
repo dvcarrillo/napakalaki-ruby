@@ -198,7 +198,10 @@ class Player
   end
   
   def valid_state ()
-    return( hiddenTreasures.size() > 4 &&  pendingBadConsequence.is_empty());
+    valid_state = false
+    if ( hiddenTreasures.size() > 4 &&  pendingBadConsequence.empty?)
+      valid_state = true
+    end
   end
   
   def init_treasures ()
