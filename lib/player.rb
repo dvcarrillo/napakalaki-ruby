@@ -9,7 +9,7 @@
 class Player
   
   # Maximum level a player can reach (constant)
-  MAX_LEVEL = 10
+  @@MAX_LEVEL = 10
   
   # These attributes can be readable
   attr_reader :name, :level, :visible_treasures, :hidden_treasures, :dead,
