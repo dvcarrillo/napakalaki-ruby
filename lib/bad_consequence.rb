@@ -2,13 +2,17 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas Carrillo, Alicia Vílchez Ceballos
+# Author: David Vargas
 
 # Class for managing the "bad consequence", which is the damages that causes a
 # monster when the player fights against it and loses.
 # "Bad consequence" includes losing a number of levels and treasures.
 
 class BadConsequence
+  
+  # This indicates that the "new" method has private visibility
+  
+  private_class_method :new
   
   # This type of declaration includes the methods of consulting the value of 
   # these variables
@@ -23,15 +27,63 @@ class BadConsequence
   attr_reader :specific_visible_treasures # Array of visible treasures
   attr_reader :specific_hidden_treasures  # Array of hidden treasures
   
-  def initialize (txt, lv, nvt, nht, dth, svt, sht)
-    @text = txt
-    @levels = lv
-    @n_visible_treasures = nvt
-    @n_hidden_treasures = nht
-    @death = dth
-    @specific_visible_treasures = svt
-    @specific_hidden_treasures = sht
-      
+  ##############################################################################
+  # CONSTRUCTOR
+  
+  def initialize(a_text, some_levels, num_visible_treasures,
+      num_hidden_treasures, some_specific_visible_treasures,
+      some_specific_hidden_treasures, the_death)
+    
+    @text = a_text
+    @death = the_death
+    @levels = some_levels
+    @n_visible_treasures = num_visible_treasures
+    @n_hidden_treasures = num_hidden_treasures
+    @specific_visible_treasures = some_specific_visible_treasures
+    @specific_hidden_treasures = some_specific_hidden_treasures
+    
+  end
+  
+  ##############################################################################
+  # INSTANCE METHODS
+  
+  # Methods that set the attributes to the desired values
+  
+  def self.new_level_number_of_treasures (a_text, some_levels,
+      some_visible_treasures, some_hidden_treasures)
+    new(a_text, some_levels, some_visible_treasures, some_hidden_treasures,
+        Array.new, Array.new, false)
+  end
+  
+  def self.new_level_specific_treasures (a_text, some_levels,
+      some_specific_visible_treasures, some_specific_hidden_treasures)
+    new(a_text, some_levels, some_specific_visible_treasures.length,
+      some_specific_hidden_treasures.length, some_specific_visible_treasures,
+      some_specific_hidden_treasures, false)
+  end
+  
+  def self.new_death(a_text)
+    new(a_text, 0, 0, 0, Array.new, Array.new, true)
+  end
+  
+  # Method that returns a string with the state of the current object
+  
+  def to_s
+    respuesta  = "Texto: #{@text}\nNiveles que resta: #{@levels}\nNum. "
+    respuesta += "tesoros visibles: #{@n_visible_treasures}\nNum. tesoros "
+    respuesta += "ocultos: #{@n_hidden_treasures}\nTesoros visibles: "
+    respuesta += "#{@specific_visible_treasures}\nTesoros ocultos: "
+    respuesta += "#{@specific_hidden_treasures}\nCausa la muerte? #{@death}\n"
+  end
+  
+  # Empty method
+  def is_empty
+    result = false
+    if death == false 
+            if ((nVisibleTreasures == 0) && (nHiddenTreasures == 0))
+                result = true;
+            end
+    end
   end
   
 end
