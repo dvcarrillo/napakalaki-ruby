@@ -13,7 +13,7 @@ class Player
   
   # These attributes can be readable
   attr_reader :name, :level, :visible_treasures, :hidden_treasures, :dead,
-    :hidden_treasures, :visible_treasures
+    :hidden_treasures, :visible_treasures, :can_i_steal
   attr_accessor :pending_bad_consequence, :enemy
   
   def initialize (a_name, a_level, is_dead, able_to_steal, his_enemy,
@@ -44,11 +44,15 @@ class Player
   private
   
   def bring_to_life()
-    # ...
+    @dead = true
   end
   
   def get_combat_level()
-    # ...
+    result = @level
+    
+    for a_treasure in @visible_treasures
+      result = result + a_treasure.bonus
+    end
   end
   
   def increment_levels(i)
@@ -128,16 +132,16 @@ class Player
     contador = 0
     
     for treasure in @visible_treasures
-      if treasure.type == tKind
+      if (treasure.type == tKind)
         contador = contador + 1
       end
     end
-    
-    # (devolver) contador ??
   end
   
   def die_if_no_treasures ()
-    # ...
+    if (@visible_treasures.empty? && @hidden_treasures.empty?)
+      @dead = true
+    end
   end
   
   def give_me_a_treasure ()
@@ -145,12 +149,11 @@ class Player
   end
   
   def can_you_give_me_a_treasure ()
-    # ...
-    return true
+    result = !(@hidden_treasures.empty?)
   end
   
   def have_stolen ()
-    # ...
+    @can_i_steal = false
   end
   
   public
@@ -191,7 +194,8 @@ class Player
   end
   
   def valid_state ()
-    # ...
+    valid_state = true if ((@hiddenTreasures.size() > 4) && 
+        (@pendingBadConsequence.empty?))
   end
   
   def init_treasures ()
@@ -210,10 +214,6 @@ class Player
   
   def set_enemy (enemy_player)
     @enemy = enemy_player
-  end
-  
-  def can_i_steal ()
-    # ...
   end
   
   def discard_all_treasures ()

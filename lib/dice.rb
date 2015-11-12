@@ -18,7 +18,7 @@ class Dice
   end
   
   def next_number ()
-    # ... (return <int>)
+    n = rand(6)+1
   end
   
 end

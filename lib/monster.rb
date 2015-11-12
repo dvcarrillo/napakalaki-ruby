@@ -26,6 +26,14 @@ class Monster
     @pz = prz
   end
   
+  def get_levels_gained
+     @pz.level
+  end
+
+  def get_treasures_gained
+    @pz.treasures
+  end
+  
   # Method that returns a string with the state of the current object
   
   def to_s
