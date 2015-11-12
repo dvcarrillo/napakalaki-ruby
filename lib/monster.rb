@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas, Alicia Vílchez
+# Author: David Vargas
 
 # This class manages the cards of type Monster and its attributes
 
@@ -19,16 +19,30 @@ class Monster
   ##############################################################################
   # INITIALIZE METHOD
   
-  def initialize(nm, com_lvl, badco, prz)
-    @name = nm
+  def initialize(a_name, com_lvl, badco, prz)
+    @name = a_name
     @combat_level = com_lvl
     @bc = badco
     @pz = prz
   end
+  # some gets methods
+   def get_levels_gained
+     @pz.level
+   end
+   
+   def get_treasures_gained
+     @pz.treasures
+   end
+
+   
+
+  # Method that returns a string with the state of the current object
   
   def to_s
-    respuesta = "nombre: #{@name} \nnivel de combate: #{@combat_level}" 
+    respuesta = "Nombre: #{@name}\nNivel de combate: #{@combat_level}" 
     respuesta += "\nMal Rollo: \n#{@bc} \nBuen Rollo: \n#{@pz}"
   end
+  
+  
   
 end
