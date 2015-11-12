@@ -16,11 +16,11 @@ class CardDealer
   
   def initialize
     # Arrays for the treasures (used and unused)
-    @used_treasures
+    @used_treasures = Array.new
     @unused_tresures
     
     # Arrays for the monsters (used and unused)
-    @used_monsters    
+    @used_monsters = Array.new
     @unused_monsters
   end
   
@@ -186,7 +186,7 @@ class CardDealer
         
         ########################################################################
         #Zapato deja-amigos
-        unused_treasures << Treasure.add("Zapato deja-amigos", 1,
+        @unused_treasures << Treasure.add("Zapato deja-amigos", 1,
                [TreasureKind::SHOES])
 
   end
@@ -215,12 +215,16 @@ class CardDealer
     # ...
   end
   
-  def give_treasure_back(trs)
-    # ...
+  def give_treasure_back(t)
+     @used_treasures << t
+     @unused_treasures.delete(t); 
+  end  
+   
   end
   
   def give_monster_back (mns)
-    # ...
+     @used_monsters << mns
+     @unused_monsters.delete(mns)
   end
   
   def init_cards()
