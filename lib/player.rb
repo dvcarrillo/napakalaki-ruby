@@ -219,5 +219,5 @@ class Player
   def discard_all_treasures ()
     # ...
   end
-  
+
 end

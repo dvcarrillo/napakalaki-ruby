@@ -6,6 +6,7 @@
 
 # This class manages the cards of type Monster and its attributes
 
+
 class Monster
   
   # This type of declaration includes the methods of consulting the value of 

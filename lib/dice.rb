@@ -15,6 +15,7 @@ class Dice
   include Singleton
   
   def initialize
+    
   end
   
   def next_number ()
