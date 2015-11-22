@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas
+# Author: David Vargas Alicia Vílchez
 
 # Class for managing the "bad consequence", which is the damages that causes a
 # monster when the player fights against it and loses.
@@ -76,14 +76,13 @@ class BadConsequence
     respuesta += "#{@specific_hidden_treasures}\nCausa la muerte? #{@death}\n"
   end
   
-  # Empty method
-  def is_empty
-    result = false
-    if death == false 
-            if ((nVisibleTreasures == 0) && (nHiddenTreasures == 0))
-                result = true;
-            end
+  def substract_visible_treasure(t)
+    
+    for i in(0..@specific_visible_treasures.size())
+      if(t == @specific_visible_treasures.get(i))
+        @specific_visible_treasures[i] = nil  ## ¿???
+      end
     end
   end
-  
+
 end
