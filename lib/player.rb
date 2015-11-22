@@ -9,12 +9,13 @@
 class Player
   
   # Maximum level a player can reach (constant)
-  MAX_LEVEL = 10
+  @@MAX_LEVEL = 10
   
   # These attributes can be readable
   attr_reader :name, :level, :visible_treasures, :hidden_treasures, :dead,
-    :hidden_treasures, :visible_treasures
+    :hidden_treasures, :visible_treasures, :can_i_steal
   attr_accessor :pending_bad_consequence, :enemy
+ 
   
   def initialize (a_name, a_level, is_dead, able_to_steal, his_enemy,
     some_visible_treasures, some_hidden_treasures, a_bc)
@@ -36,6 +37,7 @@ class Player
   
   def self.player (a_name)
     new(a_name, 0, true, true, 0, Array.new, Array.new, 0)
+    
   end
   
   ##############################################################################
@@ -44,13 +46,14 @@ class Player
   private
   
   def bring_to_life()
-    dead = true
+    @dead = true
   end
   
   def get_combat_level()
-    bonus = 0
-    for tesoro in visible_treasures
-      bonus = bonus + tesoro.bonus
+    result = @level
+    
+    for a_treasure in @visible_treasures
+      result = result + a_treasure.bonus
     end
   end
   
@@ -124,40 +127,88 @@ class Player
   end
   
   def can_make_treasure_visible (t)
-    # ...
+
+        ret = true
+        type = t.type
+        count = 0
+        
+        #SPECIAL CASE 1: t is ONEHAND treasure
+        #If there's a BOTHHANDS treasure in visibleTreasures, t won't be able
+        #to be added. In another case, the method will check if they are up to
+        #2 treasures in visibleTreasures
+        if (type == [TreasureKind::ONEHAND])
+            for a_treasure in @visible_treasures
+                if (a_treasure.type == [TreasureKind::BOTHHANDS])
+                    ret = false
+                end
+                if (a_treasure.type == [TreasureKind::ONEHAND])
+                
+                    if (count < 2)
+                        count = count +1
+                    else
+                        ret = false
+                    end
+                end
+            end
+        end
+        # SPECIAL CASE 2: t is BOTHHANDS treasure
+        # There can't be a BOTHHANDS treasure if there's already a ONEHAND
+        # treasure on visibleTreasures
+        if (type == [TreasureKind::BOTHHANDS])
+        
+            for a_treasure in @visible_treasures
+            
+                if ((a_treasure.type == [TreasureKind::ONEHAND]) ||
+                        (a_treasure.type == [TreasureKind::BOTHHANDS]))
+                    ret = false
+                end
+            end
+        
+        # OTHER CASES: t won't be able to be added if there's a treasure
+        # of the same type in visibleTreasures
+        else
+        
+            for a_treasure in @visible_treasures
+            
+                if (a_treasure.type == type)
+                    ret = false
+                end
+            end
+        end
+ 
   end
   
   def how_many_visible_treasures (tKind)
     contador = 0
     
     for treasure in @visible_treasures
-      if treasure.type == tKind
+      if (treasure.type == tKind)
         contador = contador + 1
       end
     end
-    
-    # (devolver) contador ??
   end
   
   def die_if_no_treasures ()
-    if (visibleTreasures.empty? && hiddenTreasures.empty?)
-      dead = true
+    if (@visible_treasures.empty? && @hidden_treasures.empty?)
+      @dead = true
     end
   end
-  
+   
+  #Returns a random treasure and deletes it from hiddenTreasures array.
+  #To use when the a player is going to steal a enemy's card
+    
   def give_me_a_treasure ()
-    # ...
+    n = rand(@hidden_treasures.size())
+    t = @hidden_treasures[n]
+    @hidden_treasures.delete(@hidden_treasures[n])
   end
   
   def can_you_give_me_a_treasure ()
-      result = false
-      if !(hiddenTreasures.empty?)
-        result = true
-      end
+    result = !(@hidden_treasures.empty?)
   end
   
   def have_stolen ()
-    @can_i_still = false
+    @can_i_steal = false
   end
   
   public
@@ -198,10 +249,8 @@ class Player
   end
   
   def valid_state ()
-    valid_state = false
-    if ( hiddenTreasures.size() > 4 &&  pendingBadConsequence.empty?)
-      valid_state = true
-    end
+    valid_state = true if ((@hiddenTreasures.size() > 4) && 
+        (@pendingBadConsequence.empty?))
   end
   
   def init_treasures ()
@@ -210,9 +259,9 @@ class Player
   
   # You are able to read 'levels' directly, as it is an attr_reader!
   # 
-  def get_levels ()
-    @level
-  end
+  # def get_levels ()
+  #   # ...
+  # end
   
   def steal_treasure ()
     # ...
@@ -222,12 +271,8 @@ class Player
     @enemy = enemy_player
   end
   
- # def can_i_steal ()
-  # 
- # end
-  
   def discard_all_treasures ()
     # ...
   end
   
-end
+ end
