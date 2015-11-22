@@ -45,7 +45,7 @@ class BadConsequence
   end
   
   ##############################################################################
-  # INSTANCE METHODS
+  # CONSTRUCTORS
   
   # Methods that set the attributes to the desired values
   
@@ -66,6 +66,81 @@ class BadConsequence
     new(a_text, 0, 0, 0, Array.new, Array.new, true)
   end
   
+  ##############################################################################
+  # OTHER METHODS
+  
+  # Refresh the Bad Consequence deleting the specified VISIBLE treasure
+  # This method might do nothing new, may delete a specific visible treasure or 
+  # just reduce the number of visible treasures
+  
+  def substract_visible_treasure (trs)
+    # CASE 1: The specific_visible_treasures array is empty but there is a 
+    # number greater than 0 on n_visible_treasures
+    # SOLUTION: decrement in an unit n_visible_treasures
+    
+    if ((@specific_visible_treasures.empty?) && (@n_visible_treasures > 0))
+      @n_visible_treasures -= 1
+    
+    # CASE 2: The specific_visible_treasures array is not empty.
+    # SOLUTION: The method will look for the specified treasure in the array,
+    # and if it finds it, it will delete it. In another case, nothing will
+    # happen.
+    
+    else
+      itr = 0
+      found = false
+
+      while ((itr < @specific_visible_treasures.size) && (found == false))
+        
+        if (@specific_visible_treasures[itr] == trs)
+          @specific_visible_treasures[itr] = nil
+          found = true
+          @n_visible_treasures -= 1
+        end
+        
+        itr += 1
+      end
+    end
+    
+  end
+  
+  # Refresh the Bad Consequence deleting the specified HIDDEN treasure
+  # This method might do nothing new, may delete a specific hidden treasure or 
+  # just reduce the number of hidden treasures
+  
+  def substract_hidden_treasure (trs)
+    # CASE 1: The specific_hidden_treasures array is empty but there is a 
+    # number greater than 0 on n_hidden_treasures
+    # SOLUTION: decrement in an unit n_hidden_treasures
+    
+    if ((@specific_hidden_treasures.empty?) && (@n_hidden_treasures > 0))
+      @n_hidden_treasures -= 1
+    
+    # CASE 2: The specific_hidden_treasures array is not empty.
+    # SOLUTION: The method will look for the specified treasure in the array,
+    # and if it finds it, it will delete it. In another case, nothing will
+    # happen.
+    
+    else
+      itr = 0
+      found = false
+
+      while ((itr < @specific_hidden_treasures.size) && (found == false))
+        
+        if (@specific_hidden_treasures[itr] == trs)
+          @specific_hidden_treasures[itr] = nil
+          found = true
+          @n_hidden_treasures -= 1
+        end
+        
+        itr += 1
+      end
+    end
+    
+  end
+  
+  ##############################################################################
+  # TOSTRING
   # Method that returns a string with the state of the current object
   
   def to_s

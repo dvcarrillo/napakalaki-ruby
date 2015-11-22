@@ -124,8 +124,56 @@ class Player
     
   end
   
+  # Returns 'true' if the player is allowed to make the trasure t visible,
+  # assuming it was hidden before
+  
   def can_make_treasure_visible (t)
-    # ...
+    ret = true
+    type = t.type
+    count = 0
+
+    #SPECIAL CASE 1: t is ONEHAND treasure
+    #If there's a BOTHHANDS treasure in visibleTreasures, t won't be able
+    #to be added. In another case, the method will check if they are up to
+    #2 treasures in visibleTreasures
+    if (type == [TreasureKind::ONEHAND])
+        for a_treasure in @visible_treasures
+            if (a_treasure.type == [TreasureKind::BOTHHANDS])
+                ret = false
+            end
+            if (a_treasure.type == [TreasureKind::ONEHAND])
+
+                if (count < 2)
+                    count = count +1
+                else
+                    ret = false
+                end
+            end
+        end
+    end
+    
+    # SPECIAL CASE 2: t is BOTHHANDS treasure
+    # There can't be a BOTHHANDS treasure if there's already a ONEHAND
+    # treasure on visibleTreasures
+    if (type == [TreasureKind::BOTHHANDS])
+        for a_treasure in @visible_treasures
+
+            if ((a_treasure.type == [TreasureKind::ONEHAND]) ||
+                    (a_treasure.type == [TreasureKind::BOTHHANDS]))
+                ret = false
+            end
+        end
+
+    # OTHER CASES: t won't be able to be added if there's a treasure
+    # of the same type in visibleTreasures
+    else
+        for a_treasure in @visible_treasures
+
+            if (a_treasure.type == type)
+                ret = false
+            end
+        end
+    end
   end
   
   def how_many_visible_treasures (tKind)
@@ -145,7 +193,10 @@ class Player
   end
   
   def give_me_a_treasure ()
-    # ...
+    n = rand(@hidden_treasures.size())
+    t = @hidden_treasures[n]
+    @hidden_treasures[n] = nil
+    t
   end
   
   def can_you_give_me_a_treasure ()

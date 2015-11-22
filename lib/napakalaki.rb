@@ -16,11 +16,13 @@ class Napakalaki
   # To make this class a singleton
   include Singleton
   
+  attr_reader :current_player, :current_monster
+  
   def initialize
-    @current_player  # Stores the person who is currently playing
-    @players         # Stores the total of the players playing the game
-    @current_monster # Monster which is currently fighting against the player
-    @dealer          # Object of CardDealer singleton class
+    @players = Array.new  # Stores the total of the players playing the game
+    @current_player       # Stores the person who is currently playing
+    @current_monster      # Monster which is currently fighting
+    @dealer               # Object of CardDealer singleton class
   end
   
   ##############################################################################
@@ -31,20 +33,66 @@ class Napakalaki
     # ...
   end
   
+  # Initializes the 'players' array, adding as many players as they are
+  # on the 'names' string, which contains the names of the players
+  
   def self.init_players(names)
-    # ...
+    for a_name in names
+      a_player = Player.new(a_name)
+      @players << a_player
+    end
   end
   
+  # Decides who is the next player to play.
+  # First, it calculates the index of the next player in the array of players
+  # Then, if this is the first move, it generates a random number between
+  # 0 and the number of players minus 1
+  
   def self.next_player()
-    # ...
+    if (@current_player.nil?)
+      r = rand(@players.size())
+      pos_to_return = r
+      
+    else
+      found = false;
+      count = 0;
+
+      while ((found == false) || (count < @players.size()))
+        a_player = @players[count]
+
+        if (a_player == @current_player)
+          found = true;
+          
+        else
+          count = count + 1;
+        end
+      end
+      
+      pos_to_return = count +1
+    end    
   end
   
   def self.next_turn_allowed()
-    # ...
+    @current_player.valid_state()
   end
   
+  # Assignation of enemies between the players. This method has been made to
+  # use with n players
+  
   def self.set_enemies()
-    # ...
+    
+    # Assigns a random position of the list to the enemy attribute of 
+    # another player
+    for i in(0..@players.size())
+      n = rand(@players.size())
+      
+      while (i == n)
+         n = rand(@players.size())
+      end
+      
+      @players[i].set_enemy(@players.get[n])
+    end
+    
   end
   
   ##############################################################################
@@ -79,8 +127,13 @@ class Napakalaki
     # ...
   end
   
+  # Returns 'true' if the result paratemer is WINGAME
+  
   def end_of_game()
-    # ...
+    end_of_game = false
+    if (result == [CombatResult::WINGAME])
+      end_of_game = true
+    end
   end
   
 end

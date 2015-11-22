@@ -17,7 +17,7 @@ class CardDealer
   def initialize
     # Arrays for the treasures (used and unused)
     @used_treasures = Array.new
-    @unused_tresures = Array.new
+    @unused_treasures = Array.new
     
     # Arrays for the monsters (used and unused)
     @used_monsters = Array.new  
@@ -31,6 +31,8 @@ class CardDealer
   def self.card_dealer()
     # ...
   end
+  
+  # Initializes the treasure card deck defining all the treasures of the game
   
   def self.init_treasure_card_deck()
     
@@ -153,6 +155,8 @@ class CardDealer
       [TreasureKind::SHOES])
 
   end
+  
+  # Initializes the monster card deck defining all the monsters of the game
   
   def self.init_monsters()
 
@@ -296,23 +300,79 @@ class CardDealer
   end
   
   def self.shuffle_treasures()
-    unused_treasures.shuffle!
+    @unused_treasures.shuffle!
   end
   
   def self.shuffle_monsters()
-    unused_monsters.shuffle!
+    @unused_monsters.shuffle!
   end
   
   ##############################################################################
   ## PUBLIC METHODS
   
   public
+  
+  # Returns the next treasure of the unused treasures card deck
+  # If it was empty, it would shuffle the used ones and introduce them again
+  # into the unused ones
+  
   def next_treasure()
-    # ...
+    
+    # Checks if the unused_treasures array is empty and, if so, shuffle the used
+    # ones and introduce them again into the unused ones
+    if (@unused_treasures.empty?)
+      @used_treasures.shuffle!
+      
+      for i in 0..(@used_treasures.size)
+        @unused_treasures[i] = @used_treasures[i]
+        @used_treasures[i] = nil
+      end
+    end
+    
+    # Finds and returns the next treasure
+    i = 0
+    found = false
+    
+    while ((i < @unused_treasures.size) && (found == false))
+      if (@unused_treasures[i] == nil)
+        nxt_treasure = @unused_treasures[i]
+        found = true
+      end
+      i += 1
+    end
+    
+    nxt_treasure
   end
   
+  # Returns the next monster of the unused monsters card deck
+  # If it was empty, it would shuffle the used ones and introduce them again
+  # into the unused ones
+  
   def next_monster()
-    # ...
+    # Checks if the unused_monsters array is empty and, if so, shuffle the used
+    # ones and introduce them again into the unused ones
+    if (@unused_monsters.empty?)
+      @used_monsters.shuffle!
+      
+      for i in 0..(@used_monsters.size)
+        @unused_monsters[i] = @used_monsters[i]
+        @used_monsters[i] = nil
+      end
+    end
+    
+    # Finds and returns the next monster
+    i = 0
+    found = false
+    
+    while ((i < @unused_monsters.size) && (found == false))
+      if (@unused_monsters[i] == nil)
+        nxt_monster = @unused_monsters[i]
+        found = true
+      end
+      i += 1
+    end
+    
+    nxt_monster
   end
   
   def give_treasure_back(trs)
