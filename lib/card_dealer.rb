@@ -317,9 +317,9 @@ class CardDealer
   # into the unused ones
   
   def next_treasure()
-    
     # Checks if the unused_treasures array is empty and, if so, shuffle the used
     # ones and introduce them again into the unused ones
+    
     if (@unused_treasures.empty?)
       @used_treasures.shuffle!
       
@@ -334,7 +334,7 @@ class CardDealer
     found = false
     
     while ((i < @unused_treasures.size) && (found == false))
-      if (@unused_treasures[i] == nil)
+      if (@unused_treasures[i] != nil)
         nxt_treasure = @unused_treasures[i]
         found = true
       end
@@ -351,6 +351,7 @@ class CardDealer
   def next_monster()
     # Checks if the unused_monsters array is empty and, if so, shuffle the used
     # ones and introduce them again into the unused ones
+    
     if (@unused_monsters.empty?)
       @used_monsters.shuffle!
       
@@ -365,7 +366,7 @@ class CardDealer
     found = false
     
     while ((i < @unused_monsters.size) && (found == false))
-      if (@unused_monsters[i] == nil)
+      if (@unused_monsters[i] != nil)
         nxt_monster = @unused_monsters[i]
         found = true
       end

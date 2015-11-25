@@ -101,7 +101,6 @@ class BadConsequence
         itr += 1
       end
     end
-    
   end
   
   # Refresh the Bad Consequence deleting the specified HIDDEN treasure
