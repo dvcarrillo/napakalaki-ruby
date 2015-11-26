@@ -68,7 +68,7 @@ class Napakalaki
         end
       end
       
-      pos_to_return = count +1
+      pos_to_return = count+1
     end    
   end
   

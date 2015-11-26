@@ -158,7 +158,7 @@ class CardDealer
   
   # Initializes the monster card deck defining all the monsters of the game
   
-  def self.init_monsters()
+  def self.init_monsters_card_deck()
 
     # 3 BYAKHEES DE BONANZA
     prize = Prize.new(2, 1)
@@ -325,21 +325,14 @@ class CardDealer
       
       for i in 0..(@used_treasures.size)
         @unused_treasures[i] = @used_treasures[i]
-        @used_treasures[i] = nil
       end
+      
+      @used_treasures.clear
     end
     
     # Finds and returns the next treasure
-    i = 0
-    found = false
-    
-    while ((i < @unused_treasures.size) && (found == false))
-      if (@unused_treasures[i] != nil)
-        nxt_treasure = @unused_treasures[i]
-        found = true
-      end
-      i += 1
-    end
+    nxt_treasure = @unused_monsters[0];
+    @unused_monsters.delete(nxt_treasure)
     
     nxt_treasure
   end
@@ -357,33 +350,25 @@ class CardDealer
       
       for i in 0..(@used_monsters.size)
         @unused_monsters[i] = @used_monsters[i]
-        @used_monsters[i] = nil
       end
+      
+      @used_monsters.clear
     end
     
     # Finds and returns the next monster
-    i = 0
-    found = false
     
-    while ((i < @unused_monsters.size) && (found == false))
-      if (@unused_monsters[i] != nil)
-        nxt_monster = @unused_monsters[i]
-        found = true
-      end
-      i += 1
-    end
+    nxt_monster = @unused_monsters[0];
+    @unused_monsters.delete(nxt_monster)
     
     nxt_monster
   end
   
   def give_treasure_back(trs)
     @used_treasures.add(trs)
-    @unused_treasures.delete_if { |treasure| treasure == trs }
   end
   
   def give_monster_back(mns)
-    @used_monsters.add(trs)
-    @unused_monsters.delete_if { |monster| monster == mns }
+    @used_monsters.add(mns)
   end
   
   def init_cards()

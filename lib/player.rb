@@ -270,5 +270,9 @@ class Player
   def discard_all_treasures ()
     # ...
   end
+  
+  def self.get_max_level ()
+    @@MAX_LEVEL
+  end
 
 end
