@@ -140,18 +140,18 @@ class CardDealer
       [TreasureKind::ONEHAND])
 
     # Shogulador
-    @unused_treasures << Treasure.add("Shogulador", 1,[TreasureKind::BOTHHANDS])
+    @unused_treasures << Treasure.new("Shogulador", 1,[TreasureKind::BOTHHANDS])
 
     # Varita de atizamiento
-    @unused_treasures << Treasure.add("Varita de atizamiento", 3,
+    @unused_treasures << Treasure.new("Varita de atizamiento", 3,
       [TreasureKind::ONEHAND])
 
     # Tentaculo de pega
-    @unused_treasures << Treasure.add("Tentaculo de pega", 2,
+    @unused_treasures << Treasure.new("Tentaculo de pega", 2,
       [TreasureKind::HELMET])
 
     # Zapato deja-amigos
-    @unused_treasures << Treasure.add("Zapato deja-amigos", 1,
+    @unused_treasures << Treasure.new("Zapato deja-amigos", 1,
       [TreasureKind::SHOES])
 
   end
@@ -364,11 +364,11 @@ class CardDealer
   end
   
   def give_treasure_back(trs)
-    @used_treasures.add(trs)
+    @used_treasures << trs
   end
   
   def give_monster_back(mns)
-    @used_monsters.add(mns)
+    @used_monsters << mns
   end
   
   def init_cards()
