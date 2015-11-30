@@ -233,19 +233,45 @@ class Player
   
   # m: object of Monster
   def combat (m)
-    # ...
+    my_level = get_combat_level()
+    monster_level = m.combat_level
+    
+    if my_level > monster_level
+      apply_prize (m)
+      if(@level > @@MAX_LEVEL)
+        combat_result = [CombatResult::WINGAME]
+      else
+         combat_result = [CombatResult::WIN]
+      end
+    else
+      apply_bad_consequence (m)
+      combat_result = [CombatResult::LOSE]
+    end
   end
   
   def make_treasure_visible (t)
-    # ...
-  end
+    can_i = can_make_treasure_visible (t)
+    if can_i
+      @visible_treasures << t
+      @hidden_treasures.delete(t)
+    end
+    can_i = can_make_treasure_visible (t) # la declaramos de nuevo para que el 
+  end                                     # metodo devuelva algo
   
   def discard_visible_treasure (t)
-    # ...
+    @visible_treasures.delete(t)
+    if(@pending_bad_consequence != nil && !@pending_bad_consequence.empty?)
+      @pending_bad_consequence.substract_visible_treasure(t)
+    end
+    die_if_no_treasures()
   end
   
   def discard_hidden_treasure (t)
-    # ...
+    @hidden_treasures.delete(t)
+    if(@pending_bad_consequence != nil && !@pending_bad_consequence.empty?)
+      @pending_bad_consequence.substract_hidden_treasure(t)
+    end
+    die_if_no_treasures()
   end
   
   def valid_state ()
@@ -254,7 +280,22 @@ class Player
   end
   
   def init_treasures ()
-    # ...
+    dealer = CardDealer.instance  # an object of card_dealer
+    dice = Dice.instance # an object of Dice class
+    bring_to_life()
+    treasure = dealer.next_treasure() #an object of treasure class
+    @hidden_treasures << treasure  # add this object to array @hidden_treasures
+    number = dice.next_number() # a random number
+    
+    if number > 1
+      dealer.next_treasure()
+      @hidden_treasures << treasure
+    end
+    
+    if number == 6
+      dealer.next_treasure()
+      @hidden_treasures << treasure
+    end   
   end
   
   # You are able to read 'levels' directly, as it is an attr_reader!
@@ -263,8 +304,16 @@ class Player
   #   # ...
   # end
   
-  def steal_treasure ()
-    # ...
+  def steal_treasure () # que devuelve si no se da la condicion?
+    can_i = @can_i_steal
+    if can_i
+      can_you = @enemy.can_you_give_me_a_treasure()
+      if can_you
+        treasure = @enemy.give_me_a_treasure()
+        @hidden_treasures << treasure
+        have_stolen()
+      end
+    end
   end
   
   def set_enemy (enemy_player)
@@ -272,7 +321,18 @@ class Player
   end
   
   def discard_all_treasures ()
-    # ...
+    i = 0
+    while(i < @visible_treasures.size)
+      treasure = @visible_treasures[i]
+      discard_visible_treasure (treasure)
+      i = i+1
+    end
   end
+    j = 0
+    while(j <  @hidden_treasures.size)
+      treasure = @hidden_treasures[j]
+      discard_hidden_treasure(treasure)
+      j = j +1
+    end
   
- end
+end
