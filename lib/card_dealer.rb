@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas
+# Author: David Vargas, Alicia Vílchez
 
 require 'singleton'
 
@@ -28,10 +28,6 @@ class CardDealer
   ## PRIVATE METHODS
   
   private
-  def self.card_dealer()
-    # ...
-  end
-  
   # Initializes the treasure card deck defining all the treasures of the game
   
   def self.init_treasure_card_deck()
