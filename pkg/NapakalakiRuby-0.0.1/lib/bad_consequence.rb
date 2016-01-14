@@ -7,11 +7,9 @@
 # Class for managing the "bad consequence", which is the damages that causes a
 # monster when the player fights against it and loses.
 # "Bad consequence" includes losing a number of levels and treasures.
-
 require_relative 'treasure_kind.rb'
 require_relative 'treasure.rb'
 require_relative 'player.rb'
-
 module NapakalakiGame
 class BadConsequence
   
