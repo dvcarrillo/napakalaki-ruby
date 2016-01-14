@@ -3,12 +3,9 @@
 # and open the template in the editor.
 
 # Author: David Vargas Alicia Vílchez
-
 require_relative 'bad_consequence.rb'
 require_relative 'prize.rb'
-
 # This class manages the cards of type Monster and its attributes
-
 module NapakalakiGame
 class Monster
   
