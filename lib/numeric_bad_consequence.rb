@@ -2,6 +2,8 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+# Author: David Vargas, Alicia Vílchez
+
 module NapakalakiGame
 class NumericBadConsequence < BadConsequence
   attr_reader :n_visible_treasures        # Number of visible treasures to lose

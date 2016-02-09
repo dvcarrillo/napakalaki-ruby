@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: Alicia Vílchez
+# Author: David Vargas, Alicia Vílchez
 
 require 'singleton'
 require_relative 'treasure.rb'

@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas
+# Author: David Vargas, Alicia Vílchez
 
 # Class for managing the "bad consequence", which is the damages that causes a
 # monster when the player fights against it and loses.

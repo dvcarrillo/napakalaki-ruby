@@ -2,6 +2,8 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+# Author: David Vargas, Alicia Vílchez
+
 module NapakalakiGame
 class SpecificBadConsequence < BadConsequence
   
@@ -82,7 +84,7 @@ class SpecificBadConsequence < BadConsequence
    def to_s
     
     respuesta = super.to_s
-    respuesta += " \ntesoros visibles: #{@specific_visible_treasures}\ntesoros "
+    respuesta += " \nTesoros visibles: #{@specific_visible_treasures}\nTesoros "
     respuesta += "ocultos: #{@specific_hidden_treasures} "
  
   end
