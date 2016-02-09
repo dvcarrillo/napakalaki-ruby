@@ -2,7 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-# Author: David Vargas Alicia Vílchez
+# Author: David Vargas, Alicia Vílchez
 
 require_relative 'bad_consequence.rb'
 require_relative 'prize.rb'
@@ -56,7 +56,7 @@ class Monster
     respuesta = "Nombre: #{@name}\nNivel de combate: #{@combat_level}\n" 
     respuesta += "\nBAD CONSEQUENCE:\n#{bc.to_s}"
     respuesta += "\n\nPRIZE:\n#{pz.to_s}"
-    respuesta += "\n\ncambio de nivel contra un jugador cultist: #{@level_change_against_cultist_player}"
+    respuesta += "\n\nCambio de nivel contra un jugador sectario: #{@level_change_against_cultist_player}"
     
   end
   

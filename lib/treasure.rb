@@ -22,7 +22,7 @@ class Treasure
    # Method that returns a string with the state of the current object
   
   def to_s
-    respuesta = "Nombre: #{@name}\nBonus: #{@bonus}" 
+    respuesta = "\nNombre: #{@name}\nBonus: #{@bonus}" 
     respuesta += "\nTipo: \n#{@type.to_s}"
   end
 end
